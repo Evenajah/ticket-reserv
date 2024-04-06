@@ -13,12 +13,12 @@ import { USER_STATUS } from 'src/shared/enums';
 import { HashService } from 'src/shared/services/hash/hash.service';
 import { HtmlService } from 'src/shared/services/html/html.service';
 import { MailerService } from 'src/shared/services/mailer/mailer.service';
+import { Session } from '../../schemas/session.schema';
+import { User } from '../../schemas/user.schema';
 import { AuthenDto } from './dto/authen.dto';
 import { ForgotDto } from './dto/forgot.dto';
 import { ResetCredentialDto } from './dto/reset-credential.dto';
 import { JwtPayload } from './interfaces/jwt.interface';
-import { Session } from './schema/session.schema';
-import { User } from './schema/user.schema';
 
 @Injectable()
 export class AuthenService {
@@ -232,5 +232,10 @@ export class AuthenService {
     findUser.credential = newCredential;
 
     findUser.save();
+  }
+
+  async findSessionByToken(accessToken: string) {
+    const token = await this.sessionModel.findOne({ accessToken });
+    return token;
   }
 }

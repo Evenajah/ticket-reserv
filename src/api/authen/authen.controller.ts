@@ -8,7 +8,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { AuthenService } from './authen.service';
 import { AuthenDto } from './dto/authen.dto';
@@ -16,6 +16,7 @@ import { ForgotDto } from './dto/forgot.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ResetCredentialDto } from './dto/reset-credential.dto';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthenController {
   constructor(private readonly usersService: AuthenService) {}
@@ -62,11 +63,5 @@ export class AuthenController {
   @ApiBody({ type: RefreshTokenDto })
   refreshToken(@Body() body: RefreshTokenDto) {
     return this.usersService.refreshToken(body.refreshToken);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('test')
-  test() {
-    return { test: 'test' };
   }
 }
