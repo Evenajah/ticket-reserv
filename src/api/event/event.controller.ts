@@ -15,6 +15,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { EventService } from './event.service';
 
+//TODO implement only admin Role
 @ApiTags('Event')
 @Controller('event')
 export class EventController {
@@ -23,7 +24,7 @@ export class EventController {
   @UseGuards(AuthGuard)
   @Post()
   create(@Body() createEventDto: CreateEventDto) {
-    return this.eventService.create(createEventDto);
+    return this.eventService.createEvent(createEventDto);
   }
 
   @UseGuards(AuthGuard)

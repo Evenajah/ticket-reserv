@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { EventSchema } from 'src/schemas/event.schema';
 import { Location, LocationSchema } from 'src/schemas/location.schema';
+import { Seat, SeatSchema } from 'src/schemas/seat.schema';
 import { Session, SessionSchema } from 'src/schemas/session.schema';
 import { SharedModule } from 'src/shared/shared.module';
-import { EventController } from './event.controller';
-import { EventService } from './event.service';
+import { SeatController } from './seat.controller';
+import { SeatService } from './seat.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: Event.name, schema: EventSchema },
+      { name: Seat.name, schema: SeatSchema },
       { name: Session.name, schema: SessionSchema },
       { name: Location.name, schema: LocationSchema },
     ]),
     SharedModule,
   ],
-  controllers: [EventController],
-  providers: [EventService],
+  controllers: [SeatController],
+  providers: [SeatService],
 })
-export class EventModule {}
+export class SeatModule {}

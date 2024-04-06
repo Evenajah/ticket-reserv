@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { EventDetail } from 'src/api/event/dto/create-event.dto';
+import { Document, Types } from 'mongoose';
 import { EVENT_STATUS } from 'src/shared/enums';
 
 @Schema()
@@ -14,15 +13,8 @@ export class Event extends Document {
   @Prop({ required: true })
   status: EVENT_STATUS;
 
-  @Prop([
-    {
-      date: { type: String, required: true },
-      startTime: { type: String, required: true },
-      endTime: { type: String, required: true },
-      totalSeats: { type: Number, required: true },
-    },
-  ])
-  eventDetail: EventDetail[];
+  @Prop({ type: Types.ObjectId, ref: 'Location', required: true })
+  locationId: Types.ObjectId;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

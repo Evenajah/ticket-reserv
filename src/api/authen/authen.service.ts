@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { USER_STATUS } from 'src/shared/enums';
+import { USER_ROLE, USER_STATUS } from 'src/shared/enums';
 import { HashService } from 'src/shared/services/hash/hash.service';
 import { HtmlService } from 'src/shared/services/html/html.service';
 import { MailerService } from 'src/shared/services/mailer/mailer.service';
@@ -57,6 +57,7 @@ export class AuthenService {
         credential: hashedPassword,
         status: USER_STATUS.INACTIVE,
         verificationToken,
+        role: USER_ROLE.USER,
       });
 
       await newUser.save({ session });
