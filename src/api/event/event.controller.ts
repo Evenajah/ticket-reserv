@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Patch,
@@ -38,9 +37,10 @@ export class EventController {
     return this.eventService.updateEventStatus(id, status);
   }
 
-  @UseGuards(AuthGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.eventService.removeEvent(+id);
-  }
+  //TODO implement delete event
+  // @UseGuards(AuthGuard)
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.eventService.removeEvent(+id);
+  // }
 }

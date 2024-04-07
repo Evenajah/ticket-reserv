@@ -4,7 +4,6 @@ import { Model, Types } from 'mongoose';
 import { Location } from 'src/schemas/location.schema';
 import { Seat } from 'src/schemas/seat.schema';
 import { CreateSeatDto } from './dto/create-seat.dto';
-import { UpdateSeatDto } from './dto/update-seat.dto';
 
 @Injectable()
 export class SeatService {
@@ -34,21 +33,5 @@ export class SeatService {
     );
 
     return await this.seatModel.create(seatDocuments);
-  }
-
-  findAll() {
-    return `This action returns all seat`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} seat`;
-  }
-
-  update(id: number, updateSeatDto: UpdateSeatDto) {
-    return `This action updates a #${id} seat`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} seat`;
   }
 }
