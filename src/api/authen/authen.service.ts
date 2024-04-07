@@ -144,7 +144,10 @@ export class AuthenService {
       throw new InternalServerErrorException('Failed to Sign in');
     }
 
-    return token;
+    return {
+      ...token,
+      userData: { email: findedUser.email, userId: findedUser._id },
+    };
   }
 
   signOut(accessToken: string) {

@@ -9,11 +9,14 @@ export class Reservation extends Document {
   @Prop({ type: Types.ObjectId, ref: 'EventDate', required: true })
   eventDateId: Types.ObjectId;
 
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userId: Types.ObjectId;
+
   //TODO implement invoice in future
   // @Prop({ type: Types.ObjectId, ref: 'Invoice', required: true })
   // invoiceId: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'SeatEvent', required: true })
+  @Prop({ required: true })
   seatEventIds: Types.ObjectId[];
 }
 

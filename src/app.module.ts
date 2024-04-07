@@ -6,6 +6,7 @@ import { AuthenModule } from './api/authen/authen.module';
 import { EventDateModule } from './api/event-date/event-date.module';
 import { EventModule } from './api/event/event.module';
 import { LocationModule } from './api/location/location.module';
+import { ReservationModule } from './api/reservation/reservation.module';
 import { SeatEventModule } from './api/seat-event/seat-event.module';
 import { SeatModule } from './api/seat/seat.module';
 import { AppController } from './app.controller';
@@ -26,11 +27,12 @@ import { AppService } from './app.service';
       inject: [ConfigService],
     }),
     AuthenModule,
-    EventModule,
     EventDateModule,
+    EventModule,
     LocationModule,
-    SeatModule,
+    ReservationModule,
     SeatEventModule,
+    SeatModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtService],
