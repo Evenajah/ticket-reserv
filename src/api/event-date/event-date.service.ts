@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { EventDate } from 'src/schemas/event-date.schema';
@@ -20,7 +20,7 @@ export class EventDateService {
     const findEvent = await this.eventModel.findById(eventId);
 
     if (!findEvent) {
-      throw new NotFoundException('Event Not Found');
+      throw new BadRequestException('Event Not Found');
     }
 
     const seatDocuments = createEventDateDto.dates.map(

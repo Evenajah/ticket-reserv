@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Location } from 'src/schemas/location.schema';
@@ -23,7 +19,7 @@ export class SeatService {
     const findLocation = await this.locationModel.findById(locationId);
 
     if (!findLocation) {
-      throw new NotFoundException('Location Not Found');
+      throw new BadRequestException('Location Not Found');
     }
 
     const isOverSeat =

@@ -1,34 +1,47 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SeatEventService } from './seat-event.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { CreateSeatEventDto } from './dto/create-seat-event.dto';
 import { UpdateSeatEventDto } from './dto/update-seat-event.dto';
-
+import { SeatEventService } from './seat-event.service';
+//TODO implement only admin Role
+@ApiTags('Seat Event')
 @Controller('seat-event')
 export class SeatEventController {
   constructor(private readonly seatEventService: SeatEventService) {}
 
+  @UseGuards(AuthGuard)
+  @ApiBody({ type: CreateSeatEventDto })
   @Post()
   create(@Body() createSeatEventDto: CreateSeatEventDto) {
-    return this.seatEventService.create(createSeatEventDto);
+    return this.seatEventService.createSeatEvent(createSeatEventDto);
   }
 
-  @Get()
-  findAll() {
-    return this.seatEventService.findAll();
+  @UseGuards(AuthGuard)
+  @ApiBody({ type: UpdateSeatEventDto })
+  @Patch()
+  update(@Body() updateSeatEventDto: UpdateSeatEventDto) {
+    return this.seatEventService.updateSeatEvent(updateSeatEventDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.seatEventService.findOne(+id);
+  @UseGuards(AuthGuard)
+  @Get(':eventId')
+  get(@Param('eventId') eventId: string) {
+    return this.seatEventService.getSeatEventByEventId(eventId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSeatEventDto: UpdateSeatEventDto) {
-    return this.seatEventService.update(+id, updateSeatEventDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.seatEventService.remove(+id);
+  @UseGuards(AuthGuard)
+  @Delete(':seatEventId')
+  delete(@Param('seatEventId') seatEventId: string) {
+    return this.seatEventService.getSeatEventByEventId(seatEventId);
   }
 }

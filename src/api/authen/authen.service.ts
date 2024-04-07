@@ -1,8 +1,8 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -87,7 +87,7 @@ export class AuthenService {
     const user = await this.userModel.findOne({ verificationToken });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new BadRequestException('User not found');
     }
 
     user.status = USER_STATUS.ACTIVE;
@@ -223,7 +223,7 @@ export class AuthenService {
     });
 
     if (!findUser) {
-      throw new NotFoundException('User not found');
+      throw new BadRequestException('User not found');
     }
 
     const newCredential = await this.hashService.hashCredential(

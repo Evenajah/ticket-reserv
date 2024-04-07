@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsString, Matches, ValidateNested } from 'class-validator';
+import { IsMongoId, IsString, Matches, ValidateNested } from 'class-validator';
 import { REGEX } from 'src/shared/regex';
 
 export class CreateEventDateDto {
   @ApiProperty()
-  @IsString()
+  @IsMongoId()
   eventId: string;
 
   @ApiProperty({ type: () => EventDate, isArray: true })

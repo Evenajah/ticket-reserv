@@ -13,3 +13,8 @@ export enum EVENT_STATUS {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
 }
+
+export enum SEAT_STATUS {
+  AVAILABLE = 'AVAILABLE',
+  RESERVED = 'RESERVED',
+}

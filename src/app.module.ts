@@ -6,6 +6,7 @@ import { AuthenModule } from './api/authen/authen.module';
 import { EventDateModule } from './api/event-date/event-date.module';
 import { EventModule } from './api/event/event.module';
 import { LocationModule } from './api/location/location.module';
+import { SeatEventModule } from './api/seat-event/seat-event.module';
 import { SeatModule } from './api/seat/seat.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,7 +16,7 @@ import { AppService } from './app.service';
     ConfigModule.forRoot(),
     JwtModule.register({
       global: true,
-      signOptions: { expiresIn: '10s' },
+      signOptions: { expiresIn: '1d' },
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -29,6 +30,7 @@ import { AppService } from './app.service';
     EventDateModule,
     LocationModule,
     SeatModule,
+    SeatEventModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtService],

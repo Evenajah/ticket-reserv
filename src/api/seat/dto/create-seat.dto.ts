@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsMongoId, IsNumber, IsString, ValidateNested } from 'class-validator';
 
 export class CreateSeatDto {
   @ApiProperty()
-  @IsString()
+  @IsMongoId()
   locationId: string;
 
   @ApiProperty({ type: () => Seat, isArray: true })

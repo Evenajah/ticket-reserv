@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsMongoId, IsString } from 'class-validator';
 
 export class CreateEventDto {
   @ApiProperty()
@@ -11,6 +11,6 @@ export class CreateEventDto {
   description: string;
 
   @ApiProperty()
-  @IsString()
+  @IsMongoId()
   locationId: string;
 }
