@@ -1,7 +1,9 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
+import * as redisStore from 'cache-manager-redis-store';
 import { AuthenModule } from './api/authen/authen.module';
 import { EventDateModule } from './api/event-date/event-date.module';
 import { EventModule } from './api/event/event.module';
@@ -26,9 +28,18 @@ import { AppService } from './app.service';
       }),
       inject: [ConfigService],
     }),
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        store: redisStore,
+        url: configService.get<string>('REDIS_STRING'),
+      }),
+      isGlobal: true,
+      inject: [ConfigService],
+    }),
     AuthenModule,
-    EventDateModule,
     EventModule,
+    EventDateModule,
     LocationModule,
     ReservationModule,
     SeatEventModule,

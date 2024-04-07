@@ -18,3 +18,7 @@ export enum SEAT_STATUS {
   AVAILABLE = 'AVAILABLE',
   RESERVED = 'RESERVED',
 }
+
+export enum CACHE_KEY {
+  EVENTS = 'EVENTS',
+}

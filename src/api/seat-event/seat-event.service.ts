@@ -53,20 +53,6 @@ export class SeatEventService {
     return await Promise.all(updatedSeatEvents);
   }
 
-  private async checkExistEventDate(eventDateId: Types.ObjectId) {
-    const findEventDate = await this.eventDateModel.findById(eventDateId);
-    if (!findEventDate) {
-      throw new BadRequestException('Event Date Not Found');
-    }
-  }
-
-  private async checkExistEvent(eventId: Types.ObjectId) {
-    const findEventDate = await this.eventModel.findById(eventId);
-    if (!findEventDate) {
-      throw new BadRequestException('Event Date Not Found');
-    }
-  }
-
   async getSeatEventByEventId(eventId: string) {
     const eId = new Types.ObjectId(eventId);
 
@@ -142,5 +128,19 @@ export class SeatEventService {
     const seatEventId = new Types.ObjectId(id);
 
     return await this.seatEventModel.deleteOne({ _id: seatEventId });
+  }
+
+  private async checkExistEventDate(eventDateId: Types.ObjectId) {
+    const findEventDate = await this.eventDateModel.findById(eventDateId);
+    if (!findEventDate) {
+      throw new BadRequestException('Event Date Not Found');
+    }
+  }
+
+  private async checkExistEvent(eventId: Types.ObjectId) {
+    const findEventDate = await this.eventModel.findById(eventId);
+    if (!findEventDate) {
+      throw new BadRequestException('Event Date Not Found');
+    }
   }
 }

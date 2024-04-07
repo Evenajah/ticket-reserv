@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { EVENT_STATUS } from 'src/shared/enums';
 import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 import { EventService } from './event.service';
 
 //TODO implement only admin Role
@@ -46,20 +46,14 @@ export class EventController {
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventService.findOne(+id);
-  }
-
-  @UseGuards(AuthGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventService.update(+id, updateEventDto);
+  @Patch(':eventId')
+  update(@Param('eventId') id: string, @Body() status: EVENT_STATUS) {
+    return this.eventService.updateEventStatus(id, status);
   }
 
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.eventService.remove(+id);
+    return this.eventService.removeEvent(+id);
   }
 }
