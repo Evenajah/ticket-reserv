@@ -6,10 +6,9 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { EVENT_STATUS } from 'src/shared/enums';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -29,20 +28,8 @@ export class EventController {
 
   @UseGuards(AuthGuard)
   @Get()
-  @ApiQuery({
-    name: 'limit',
-    required: false,
-    type: Number,
-    description: 'Limit of results per page',
-  })
-  @ApiQuery({
-    name: 'offset',
-    required: false,
-    type: Number,
-    description: 'Offset of results for pagination',
-  })
-  findAll(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return this.eventService.findEvents(limit, offset);
+  findAll() {
+    return this.eventService.findEvents();
   }
 
   @UseGuards(AuthGuard)

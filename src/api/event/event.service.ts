@@ -35,7 +35,7 @@ export class EventService {
     return await newEvent.save();
   }
 
-  async findEvents(limit: number, offset: number): Promise<Event[]> {
+  async findEvents(): Promise<Event[]> {
     const cacheEvents = await this.cacheService.get<any>(CACHE_KEY.EVENTS);
 
     if (cacheEvents) {
