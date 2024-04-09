@@ -21,21 +21,18 @@ export class EventController {
   constructor(private readonly eventService: EventService) {}
 
   @Roles([USER_ROLE.ADMIN])
-  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createEventDto: CreateEventDto) {
     return this.eventService.createEvent(createEventDto);
   }
 
   @Roles([USER_ROLE.ADMIN])
-  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.eventService.findEvents();
   }
 
   @Roles([USER_ROLE.ADMIN])
-  @UseGuards(AuthGuard)
   @Patch(':eventId')
   update(@Param('eventId') id: string, @Body() status: EVENT_STATUS) {
     return this.eventService.updateEventStatus(id, status);
