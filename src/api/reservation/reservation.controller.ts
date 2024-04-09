@@ -5,19 +5,19 @@ import { HostGuard, ParamsTrack } from 'src/guards/host/host.guard';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { ReservationService } from './reservation.service';
 
+@UseGuards(AuthGuard)
 @ApiTags('Reservation')
 @Controller('reservation')
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
-  @UseGuards(AuthGuard)
   @ApiBody({ type: CreateReservationDto })
   @Post()
   create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationService.createReservation(createReservationDto);
   }
 
-  @UseGuards(AuthGuard, HostGuard)
+  @UseGuards(HostGuard)
   @Get(':userId')
   @ParamsTrack('userId')
   findOne(@Param('userId') userId: string) {

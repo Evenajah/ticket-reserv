@@ -57,7 +57,8 @@ export class AuthenService {
         credential: hashedPassword,
         status: USER_STATUS.INACTIVE,
         verificationToken,
-        role: USER_ROLE.USER,
+        //TODO set admin for test all api if on prod set to user role
+        role: USER_ROLE.ADMIN,
       });
 
       await newUser.save({ session });
@@ -120,6 +121,7 @@ export class AuthenService {
       id: findedUser.id,
       email: findedUser.email,
       status: findedUser.status,
+      role: findedUser.role,
     };
 
     const token = await this.generateToken(jwtPayload);
@@ -146,7 +148,11 @@ export class AuthenService {
 
     return {
       ...token,
-      userData: { email: findedUser.email, userId: findedUser._id },
+      userData: {
+        email: findedUser.email,
+        userId: findedUser._id,
+        role: findedUser.role,
+      },
     };
   }
 
@@ -166,6 +172,7 @@ export class AuthenService {
       email: decodedToken.email,
       status: decodedToken.status,
       id: decodedToken.id,
+      role: decodedToken.role,
     });
 
     return token;

@@ -7,9 +7,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import { Request } from 'express';
 import { Model } from 'mongoose';
 import { Session } from 'src/schemas/session.schema';
+import { extractTokenFromHeader } from 'src/shared/utils';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -41,10 +41,5 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     return true;
-  }
-
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] = request.headers.authorization?.split(' ') ?? [];
-    return type === 'Bearer' ? token : undefined;
   }
 }

@@ -1,16 +1,18 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { RoleGuard, Roles } from 'src/guards/role/role.guard';
+import { USER_ROLE } from 'src/shared/enums';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { SeatService } from './seat.service';
 
-//TODO implement only admin Role
+@UseGuards(AuthGuard, RoleGuard)
 @ApiTags('Seat')
 @Controller('seat')
 export class SeatController {
   constructor(private readonly seatService: SeatService) {}
 
-  @UseGuards(AuthGuard)
+  @Roles([USER_ROLE.ADMIN])
   @ApiBody({ type: CreateSeatDto })
   @Post()
   create(@Body() createSeatDto: CreateSeatDto) {
